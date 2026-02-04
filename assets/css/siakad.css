@@ -1,0 +1,404 @@
+/* ==========================================================================
+   SIAKAD SMP YPPGI Bomou - CSS Responsive + Dark Mode
+   ========================================================================== */
+
+:root {
+  --sidebar-width: 280px;
+  --primary: #4f46e5; /* indigo-600 */
+  --primary-dark: #4338ca; /* indigo-700 */
+  --accent: #6366f1; /* indigo-500 */
+  --text-light: #0f172a; /* slate-900 */
+  --text-dark: #f1f5f9; /* slate-100 */
+  --bg-light: #f8fafc; /* slate-50 */
+  --bg-dark: #020617; /* slate-950 */
+  --card-light: #ffffff;
+  --card-dark: #0f172a; /* slate-900 */
+  --border-light: #e2e8f0; /* slate-200 */
+  --border-dark: #334155; /* slate-700 */
+  --input-bg-light: #ffffff;
+  --input-bg-dark: #1e293b; /* slate-800 */
+  --input-text-light: #0f172a;
+  --input-text-dark: #e2e8f0;
+  --placeholder-light: #94a3b8;
+  --placeholder-dark: #64748b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+.dark body {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* =============================================
+   Sidebar - Animasi Lebih Halus & Modern
+============================================= */
+.sidebar {
+  position: fixed;
+  inset-y: 0;
+  left: 0;
+  z-index: 50;
+  width: var(--sidebar-width);
+  background: linear-gradient(to bottom, var(--primary), #4338ca);
+  color: white;
+  box-shadow: 4px 0 25px -5px rgba(0, 0, 0, 0.35);
+
+  /* Animasi utama */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform; /* optimasi performa */
+}
+
+/* Kondisi tertutup (mobile) */
+@media (max-width: 1023px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Desktop: selalu terlihat, tanpa animasi geser */
+@media (min-width: 1024px) {
+  .sidebar {
+    transform: translateX(0) !important;
+    box-shadow: none; /* hilangkan shadow di desktop agar lebih clean */
+  }
+}
+
+/* Efek tambahan saat hover item menu (opsional tapi bagus) */
+nav a {
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateX(6px);
+}
+
+/* Efek garis indikator di sisi kiri saat aktif */
+nav a.active,
+nav a[aria-current="page"] {
+  background-color: rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+
+nav a.active::before,
+nav a[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: white;
+  transform: scaleY(0.6);
+  transition: transform 0.3s ease;
+}
+
+nav a:hover::before {
+  transform: scaleY(1);
+}
+
+/* Overlay gelap saat sidebar terbuka di mobile */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 1023px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* =============================================
+   Card & Modal
+============================================= */
+.card {
+  background-color: var(--card-light);
+  border-radius: 1rem; /* 16px */
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.dark .card {
+  background-color: var(--card-dark);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.4),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background-color: var(--card-light);
+  max-width: 95%;
+  width: 640px;
+  max-height: 92vh;
+  border-radius: 1rem;
+  overflow-y: auto;
+}
+
+.dark .modal {
+  background-color: var(--card-dark);
+}
+
+/* Modal - Form Elements */
+.modal label {
+  color: #334155; /* slate-700 */
+}
+
+.dark .modal label {
+  color: #cbd5e1; /* slate-300 */
+}
+
+.modal input,
+.modal select,
+.modal textarea {
+  background-color: var(--input-bg-light);
+  border-color: var(--border-light);
+  color: var(--input-text-light);
+}
+
+.dark .modal input,
+.dark .modal select,
+.dark .modal textarea {
+  background-color: var(--input-bg-dark);
+  border-color: var(--border-dark);
+  color: var(--input-text-dark);
+}
+
+.modal input::placeholder,
+.modal textarea::placeholder {
+  color: var(--placeholder-light);
+}
+
+.dark .modal input::placeholder,
+.dark .modal textarea::placeholder {
+  color: var(--placeholder-dark);
+}
+
+.modal input:focus,
+.modal select:focus,
+.modal textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* =============================================
+   Table
+============================================= */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+th {
+  background-color: #f1f5f9; /* slate-100 */
+  color: #334155; /* slate-700 */
+  font-weight: 600;
+}
+
+.dark th {
+  background-color: #1e293b; /* slate-800/80 */
+  color: #cbd5e1; /* slate-300 */
+}
+
+td {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dark td {
+  border-bottom: 1px solid var(--border-dark);
+}
+
+tr:hover {
+  background-color: #f8fafc; /* slate-50 */
+}
+
+.dark tr:hover {
+  background-color: rgba(30, 41, 59, 0.6); /* slate-800/60 */
+}
+
+/* Status Badge */
+.bg-green-100 {
+  background-color: #dcfce7;
+}
+.dark .bg-green-100 {
+  background-color: rgba(34, 197, 94, 0.15);
+}
+.bg-green-800 {
+  color: #166534;
+}
+.dark .bg-green-800 {
+  color: #86efac;
+}
+
+/* =============================================
+   Responsive Adjustments
+============================================= */
+
+/* Extra small devices (phones, <576px) */
+@media (max-width: 575px) {
+  :root {
+    --sidebar-width: 260px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  .grid-cols-4 {
+    @apply grid-cols-1;
+  }
+  .grid-cols-3 {
+    @apply grid-cols-1;
+  }
+  .grid-cols-2 {
+    @apply grid-cols-1;
+  }
+
+  .quick-actions button {
+    padding: 1rem 0.75rem;
+  }
+
+  .modal {
+    width: 96%;
+  }
+
+  .modal .space-y-5 > div {
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .quick-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .grid-cols-1 {
+    @apply grid-cols-2;
+  }
+  .quick-actions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+  .grid-cols-1 {
+    @apply grid-cols-3;
+  }
+  .grid-cols-2 {
+    @apply grid-cols-4;
+  }
+  .quick-actions {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .sidebar {
+    transform: translateX(0) !important;
+  }
+
+  .lg\:ml-\[var\(--sidebar-width\)\] {
+    margin-left: var(--sidebar-width);
+  }
+}
+
+/* Extra large (1280px and up) */
+@media (min-width: 1280px) {
+  .modal {
+    width: 680px;
+  }
+}
+
+/* =============================================
+   Additional Improvements
+============================================= */
+.hover\:shadow-xl:hover {
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.rounded-xl {
+  border-radius: 0.75rem; /* 12px */
+}
+
+.rounded-2xl {
+  border-radius: 1rem; /* 16px */
+}
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+/* Better focus ring for accessibility */
+.focus\:ring-2:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+/* Scrollbar styling (optional - modern browsers) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #64748b #1e293b;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 20px;
+  border: 1px solid #334155;
+}
