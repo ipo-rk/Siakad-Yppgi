@@ -1,0 +1,185 @@
+/* ==========================================================================
+   Login Page - Siakad SMP YPPGI Bomou
+   Versi compact & responsive
+   ========================================================================== */
+
+body {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.dark body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Container utama */
+.max-w-md {
+  max-width: 420px; /* diperkecil dari 448px default */
+}
+
+/* Bagian header (logo + judul) */
+.p-8 {
+  padding: 2rem 1.5rem; /* dikurangi */
+}
+
+.text-5xl {
+  font-size: 3.5rem; /* ikon lebih kecil */
+}
+
+.text-2xl {
+  font-size: 1.5rem; /* judul lebih compact */
+}
+
+/* =============================================
+   Tombol Pilih Role - Versi Compact
+============================================= */
+.grid-cols-2.gap-4 {
+  gap: 1rem; /* jarak antar tombol lebih kecil */
+}
+
+button[x-click*="selectRole"] {
+  padding: 1.25rem 1rem; /* padding dalam tombol lebih kecil */
+  border-radius: 1rem;
+  border-width: 1px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  height: 140px; /* tinggi tombol lebih pendek */
+}
+
+button[x-click*="selectRole"] .absolute {
+  transition: opacity 0.3s ease;
+}
+
+button[x-click*="selectRole"] i {
+  font-size: 2.5rem; /* ikon lebih kecil (dari 4xl) */
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+button[x-click*="selectRole"] span.font-semibold {
+  font-size: 1.05rem; /* teks role lebih kecil */
+}
+
+button[x-click*="selectRole"] span.text-xs {
+  font-size: 0.75rem; /* keterangan lebih kecil */
+}
+
+/* Hover effect tetap menarik tapi lebih smooth */
+button[x-click*="selectRole"]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
+.dark button[x-click*="selectRole"]:hover {
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* Warna spesifik per role (tetap dipertahankan) */
+button[x-click*="selectRole"] i.text-indigo {
+  color: #4f46e5;
+}
+.dark button[x-click*="selectRole"] i.text-indigo {
+  color: #818cf8;
+}
+
+button[x-click*="selectRole"] i.text-emerald {
+  color: #10b981;
+}
+.dark button[x-click*="selectRole"] i.text-emerald {
+  color: #34d399;
+}
+
+button[x-click*="selectRole"] i.text-blue {
+  color: #3b82f6;
+}
+.dark button[x-click*="selectRole"] i.text-blue {
+  color: #60a5fa;
+}
+
+button[x-click*="selectRole"] i.text-purple {
+  color: #8b5cf6;
+}
+.dark button[x-click*="selectRole"] i.text-purple {
+  color: #a78bfa;
+}
+
+/* =============================================
+   Form Login
+============================================= */
+form.space-y-5 {
+  padding: 0 1.5rem 2rem; /* padding form lebih kecil */
+}
+
+label {
+  font-size: 0.875rem; /* lebih kecil */
+  margin-bottom: 0.5rem;
+}
+
+input {
+  padding: 0.75rem 1rem; /* input lebih compact */
+  font-size: 0.95rem;
+  border-radius: 0.75rem;
+}
+
+button[type="submit"] {
+  padding: 0.85rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+}
+
+/* Modal Ganti Password */
+.max-w-md {
+  max-width: 400px;
+}
+
+.modal-inner {
+  padding: 1.75rem;
+}
+
+/* Teks kecil di bawah */
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+/* =============================================
+   Responsive Adjustments
+============================================= */
+
+/* Mobile kecil (≤ 360px) */
+@media (max-width: 360px) {
+  .max-w-md {
+    max-width: 100%;
+  }
+
+  button[x-click*="selectRole"] {
+    padding: 1rem 0.75rem;
+    height: 130px;
+  }
+
+  button[x-click*="selectRole"] i {
+    font-size: 2.25rem;
+  }
+
+  form.space-y-5 {
+    padding: 0 1rem 1.5rem;
+  }
+}
+
+/* Tablet kecil & mobile landscape */
+@media (min-width: 640px) {
+  .max-w-md {
+    max-width: 420px;
+  }
+}
+
+/* Layar lebih besar */
+@media (min-width: 768px) {
+  .max-w-md {
+    max-width: 460px;
+  }
+
+  button[x-click*="selectRole"] {
+    height: 150px;
+  }
+}

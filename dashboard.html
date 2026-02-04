@@ -2051,10 +2051,60 @@
             </div>
         </div>
     </div>
+    <script>
+        function app() {
+            return {
+                user: null,
+                isAuthenticated: false,
+                userName: 'Guest',
+                userRole: 'guest',
+                darkMode: localStorage.getItem('darkMode') === 'true' || false,
 
-    <script src="assets/js/app.js">
+                init() {
+                    this.checkAuth();
+                    // sinkronisasi dark mode dari localStorage
+                    if (this.darkMode) document.documentElement.classList.add('dark');
+                },
 
+                checkAuth() {
+                    const storedUser = sessionStorage.getItem('user');
+
+                    if (!storedUser) {
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    try {
+                        const userData = JSON.parse(storedUser);
+                        this.user = userData;
+                        this.isAuthenticated = true;
+                        this.userName = userData.name || 'User';
+                        this.userRole = userData.role || 'user';
+
+                        // Cek apakah token kadaluarsa (opsional)
+                        if (userData.expiresAt && new Date().getTime() > userData.expiresAt) {
+                            this.logout();
+                        }
+                    } catch (e) {
+                        console.error('Invalid user data:', e);
+                        this.logout();
+                    }
+                },
+
+                logout() {
+                    sessionStorage.removeItem('user');
+                    window.location.href = 'login.html';
+                },
+
+                toggleDarkMode() {
+                    this.darkMode = !this.darkMode;
+                    document.documentElement.classList.toggle('dark', this.darkMode);
+                    localStorage.setItem('darkMode', this.darkMode);
+                }
+            }
+        }
     </script>
+    <script src="assets/js/app.js"> </script>
 </body>
 
 </html>

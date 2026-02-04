@@ -1,5 +1,6 @@
 /* ==========================================================================
    SIAKAD SMP YPPGI Bomou - CSS Responsive + Dark Mode
+   Versi final - sudah dibersihkan dari duplikasi & konflik
    ========================================================================== */
 
 :root {
@@ -28,9 +29,19 @@ html {
 }
 
 body {
-  @apply min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased;
+  min-height: 100vh;
   background-color: var(--bg-light);
   color: var(--text-light);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 }
 
 .dark body {
@@ -39,7 +50,7 @@ body {
 }
 
 /* =============================================
-   Sidebar - Animasi Lebih Halus & Modern
+   Sidebar
 ============================================= */
 .sidebar {
   position: fixed;
@@ -47,16 +58,13 @@ body {
   left: 0;
   z-index: 50;
   width: var(--sidebar-width);
-  background: linear-gradient(to bottom, var(--primary), #4338ca);
+  background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
   color: white;
   box-shadow: 4px 0 25px -5px rgba(0, 0, 0, 0.35);
-
-  /* Animasi utama */
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform; /* optimasi performa */
+  will-change: transform;
 }
 
-/* Kondisi tertutup (mobile) */
 @media (max-width: 1023px) {
   .sidebar {
     transform: translateX(-100%);
@@ -67,18 +75,20 @@ body {
   }
 }
 
-/* Desktop: selalu terlihat, tanpa animasi geser */
 @media (min-width: 1024px) {
   .sidebar {
     transform: translateX(0) !important;
-    box-shadow: none; /* hilangkan shadow di desktop agar lebih clean */
+    box-shadow: none;
+    position: sticky;
+    top: 0;
+    height: 100vh;
   }
 }
 
-/* Efek tambahan saat hover item menu (opsional tapi bagus) */
+/* Menu item hover & active effect */
 nav a {
-  transition: all 0.25s ease;
   position: relative;
+  transition: all 0.25s ease;
   overflow: hidden;
 }
 
@@ -87,20 +97,17 @@ nav a:hover {
   transform: translateX(6px);
 }
 
-/* Efek garis indikator di sisi kiri saat aktif */
 nav a.active,
 nav a[aria-current="page"] {
   background-color: rgba(255, 255, 255, 0.15);
-  position: relative;
 }
 
 nav a.active::before,
 nav a[aria-current="page"]::before {
   content: "";
   position: absolute;
+  inset-y: 0;
   left: 0;
-  top: 0;
-  bottom: 0;
   width: 4px;
   background-color: white;
   transform: scaleY(0.6);
@@ -111,7 +118,7 @@ nav a:hover::before {
   transform: scaleY(1);
 }
 
-/* Overlay gelap saat sidebar terbuka di mobile */
+/* Sidebar overlay (mobile) */
 .overlay {
   position: fixed;
   inset: 0;
@@ -128,21 +135,12 @@ nav a:hover::before {
   pointer-events: auto;
 }
 
-@media (max-width: 1023px) {
-  .sidebar {
-    transform: translateX(-100%);
-  }
-  .sidebar.open {
-    transform: translateX(0);
-  }
-}
-
 /* =============================================
    Card & Modal
 ============================================= */
 .card {
   background-color: var(--card-light);
-  border-radius: 1rem; /* 16px */
+  border-radius: 1rem;
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -158,37 +156,46 @@ nav a:hover::before {
 
 /* Modal */
 .modal-backdrop {
+  position: fixed;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
+  z-index: 50;
 }
 
 .modal {
-  background-color: var(--card-light);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
   max-width: 95%;
   width: 640px;
   max-height: 92vh;
+  background-color: var(--card-light);
   border-radius: 1rem;
   overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
 }
 
 .dark .modal {
   background-color: var(--card-dark);
 }
 
-/* Modal - Form Elements */
+/* Modal form elements */
 .modal label {
-  color: #334155; /* slate-700 */
+  color: #334155;
 }
 
 .dark .modal label {
-  color: #cbd5e1; /* slate-300 */
+  color: #cbd5e1;
 }
 
 .modal input,
 .modal select,
 .modal textarea {
   background-color: var(--input-bg-light);
-  border-color: var(--border-light);
+  border: 1px solid var(--border-light);
   color: var(--input-text-light);
 }
 
@@ -228,14 +235,15 @@ table {
 }
 
 th {
-  background-color: #f1f5f9; /* slate-100 */
-  color: #334155; /* slate-700 */
+  background-color: #f1f5f9;
+  color: #334155;
   font-weight: 600;
+  text-align: left;
 }
 
 .dark th {
-  background-color: #1e293b; /* slate-800/80 */
-  color: #cbd5e1; /* slate-300 */
+  background-color: #1e293b;
+  color: #cbd5e1;
 }
 
 td {
@@ -247,32 +255,26 @@ td {
 }
 
 tr:hover {
-  background-color: #f8fafc; /* slate-50 */
+  background-color: #f8fafc;
 }
 
 .dark tr:hover {
-  background-color: rgba(30, 41, 59, 0.6); /* slate-800/60 */
+  background-color: rgba(30, 41, 59, 0.6);
 }
 
-/* Status Badge */
+/* Status badge overrides */
 .bg-green-100 {
   background-color: #dcfce7;
 }
+
 .dark .bg-green-100 {
   background-color: rgba(34, 197, 94, 0.15);
-}
-.bg-green-800 {
-  color: #166534;
-}
-.dark .bg-green-800 {
-  color: #86efac;
 }
 
 /* =============================================
    Responsive Adjustments
 ============================================= */
 
-/* Extra small devices (phones, <576px) */
 @media (max-width: 575px) {
   :root {
     --sidebar-width: 260px;
@@ -288,68 +290,44 @@ tr:hover {
     font-size: 1.25rem;
   }
 
-  .grid-cols-4 {
-    @apply grid-cols-1;
-  }
-  .grid-cols-3 {
-    @apply grid-cols-1;
-  }
+  .grid-cols-4,
+  .grid-cols-3,
   .grid-cols-2 {
-    @apply grid-cols-1;
-  }
-
-  .quick-actions button {
-    padding: 1rem 0.75rem;
+    grid-template-columns: 1fr;
   }
 
   .modal {
     width: 96%;
   }
-
-  .modal .space-y-5 > div {
-    margin-bottom: 1.25rem;
-  }
 }
 
-/* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
   .quick-actions {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .grid-cols-1 {
-    @apply grid-cols-2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .quick-actions {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
-/* Large devices (desktops, 1024px and up) */
 @media (min-width: 1024px) {
   .grid-cols-1 {
-    @apply grid-cols-3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .grid-cols-2 {
-    @apply grid-cols-4;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .quick-actions {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-
-  .sidebar {
-    transform: translateX(0) !important;
-  }
-
-  .lg\:ml-\[var\(--sidebar-width\)\] {
-    margin-left: var(--sidebar-width);
-  }
 }
 
-/* Extra large (1280px and up) */
 @media (min-width: 1280px) {
   .modal {
     width: 680px;
@@ -357,8 +335,9 @@ tr:hover {
 }
 
 /* =============================================
-   Additional Improvements
+   Utilities & Improvements
 ============================================= */
+
 .hover\:shadow-xl:hover {
   box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
@@ -366,24 +345,23 @@ tr:hover {
 }
 
 .rounded-xl {
-  border-radius: 0.75rem; /* 12px */
+  border-radius: 0.75rem;
 }
-
 .rounded-2xl {
-  border-radius: 1rem; /* 16px */
+  border-radius: 1rem;
 }
 
 .transition-all {
   transition: all 0.2s ease;
 }
 
-/* Better focus ring for accessibility */
+/* Focus ring accessibility */
 .focus\:ring-2:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
 }
 
-/* Scrollbar styling (optional - modern browsers) */
+/* Custom scrollbar */
 * {
   scrollbar-width: thin;
   scrollbar-color: #64748b #1e293b;
@@ -402,3 +380,18 @@ tr:hover {
   border-radius: 20px;
   border: 1px solid #334155;
 }
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+/* Sidebar overlay */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+}
+.sidebar-overlay[style*="display: none"] {
+  display: none !important;
+}
+/* End of siakad.css */
