@@ -320,7 +320,7 @@ document.addEventListener('alpine:init', () => {
             });
 
             if (!localStorage.getItem('userRole')) {
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             }
 
             // Watch filter changes → reset page to 1
@@ -376,7 +376,7 @@ document.addEventListener('alpine:init', () => {
             localStorage.removeItem('userRole');
             localStorage.removeItem('userName');
             localStorage.removeItem('userId');
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         },
 
         formatNumber(num) {
